@@ -1,0 +1,27 @@
+{
+  "name": "paste-list",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "prettier": "@dilanx/config/prettier",
+  "scripts": {
+    "build": "vite build",
+    "prepack": "npm run build",
+    "pack": "zip -r paste-list.zip dist"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.3.0",
+    "react-select": "^5.4.0",
+    "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "@dilanx/config": "^1.1.0",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
+    "prettier": "2.7.1",
+    "vite": "^3.0.7"
+  }
+}
