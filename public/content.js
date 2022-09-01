@@ -2,6 +2,7 @@ var pl_index = -1;
 var pl_list = null;
 var pl_selected = null;
 var pl_current = null;
+var pl_e = null;
 
 function pl_log(msg) {
   console.log(`Paste List (${pl_selected}): ${msg}`);
@@ -13,9 +14,13 @@ function pl_onPaste() {
       pl_stop(true);
       return;
     }
-    navigator.clipboard.writeText(pl_list[pl_index]);
-    pl_log(`copied index ${pl_index} to clipboard`);
-    pl_current.innerText = pl_selected + ': ' + (pl_index + 1);
+
+    const item = pl_list[pl_index];
+    navigator.clipboard.writeText(item.content);
+    pl_log(
+      `copied index ${pl_index} (id: ${item.id}, name: ${item.name}) to clipboard`
+    );
+    pl_current.innerText = pl_selected + ': ' + item.name;
     pl_index++;
   }
 }
@@ -38,32 +43,21 @@ function pl_start(items) {
 
   pl_log('added paste event listener to document');
 
-  const html = `
-    <div id="paste-list-extension">
-      <p id="paste-list-element-current-item">
-        ${pl_selected}
-      </p>
-      <div>
-        <button id="paste-list-element-stop">
-          Stop
-        </button>
-        <button id="paste-list-element-continue">
-          Start
-        </button>
-      </div>
-    </div>
-  `;
+  const e = document.createElement('paste-list-element');
+  document.documentElement.appendChild(e);
 
-  document.body.innerHTML += html;
-  pl_current = document.getElementById('paste-list-element-current-item');
+  pl_current = e.shadowRoot.getElementById('paste-list-element-current-item');
+  pl_current.innerText = pl_selected;
 
-  document
+  e.shadowRoot
     .getElementById('paste-list-element-stop')
     .addEventListener('click', () => {
       pl_stop(false);
     });
 
-  let continueButton = document.getElementById('paste-list-element-continue');
+  let continueButton = e.shadowRoot.getElementById(
+    'paste-list-element-continue'
+  );
 
   continueButton.addEventListener('click', () => {
     if (pl_index < 0) {
@@ -72,6 +66,8 @@ function pl_start(items) {
     }
     pl_onPaste();
   });
+
+  pl_e = e;
 
   pl_log(`added paste list element to document body`);
 }
@@ -84,7 +80,8 @@ function pl_stop(complete) {
 
   pl_log(`removed paste event listener from document`);
 
-  document.getElementById('paste-list-extension').remove();
+  pl_e.remove();
+  pl_e = null;
 
   pl_log(`removed paste list element from document body`);
 }

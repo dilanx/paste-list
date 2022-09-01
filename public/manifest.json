@@ -1,7 +1,7 @@
 {
   "name": "Paste List",
   "description": "Consecutively paste things",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Dilan Nair",
   "manifest_version": 3,
   "icons": {
@@ -13,8 +13,7 @@
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "css": ["content.css"],
-      "js": ["content.js"]
+      "js": ["webcomponents-bundle.js", "element.js", "content.js"]
     }
   ],
   "permissions": ["storage"],

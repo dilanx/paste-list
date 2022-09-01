@@ -1,7 +1,7 @@
 {
   "name": "paste-list",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "prettier": "@dilanx/config/prettier",
   "scripts": {
@@ -10,11 +10,14 @@
     "pack": "zip -r paste-list.zip dist"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.10",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-select": "^5.4.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@dilanx/config": "^1.1.0",
